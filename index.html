@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -6,11 +6,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Portfolio</title>
   <style>
+    :root {
+      --surface: #ffffff;
+      --surface-soft: #fff8f2;
+      --text: #171717;
+      --muted: #5f5f5f;
+      --accent: #ff7a1a;
+      --accent-soft: #fff0e3;
+      --border: rgba(255, 122, 26, 0.18);
+      --shadow: 0 18px 40px rgba(255, 122, 26, 0.08);
+      --radius-xl: 32px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+    }
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     }
 
     html {
@@ -18,368 +32,767 @@
     }
 
     body {
-      background-color: #0d0d0d;
-      color: #f0f0f0;
-      line-height: 1.6;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top, #fff1e4 0, transparent 26%),
+        linear-gradient(180deg, #ffffff 0%, #fffaf6 100%);
+      color: var(--text);
+      line-height: 1.7;
     }
 
-    header {
-      background-color: #1a1a1a;
-      text-align: center;
-      padding: 2rem 1rem;
-      position: relative;
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page-shell {
+      width: min(1080px, calc(100% - 1.5rem));
+      margin: 0 auto;
+      padding: 1rem 0 3rem;
+    }
+
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 122, 26, 0.08);
+      z-index: 40;
+    }
+
+    .scroll-progress-bar {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, #ff7a1a, #ff9a4d);
+      box-shadow: 0 0 14px rgba(255, 122, 26, 0.35);
+      transition: width 0.08s linear;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 1rem;
+      z-index: 20;
+      margin-bottom: 1.4rem;
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 0.8rem 1rem;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
     }
 
     .portfolio-title {
-      font-size: 1.5rem;
-      color: #ff6600;
-      margin-bottom: 0.5rem;
-    }
-
-    header img {
-      width: 310px;
-      height: 300px;
-      border-radius: 50%;
-      border: 4px solid #ff6600;
-    }
-
-    header h1 {
-      margin-top: 1rem;
-      font-size: 2rem;
-      color: #ff6600;
+      font-size: 0.92rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      white-space: nowrap;
     }
 
     .menu-toggle {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      background: none;
-      border: 2px solid #ff6600;
-      color: #ff6600;
-      padding: 0.5rem;
-      border-radius: 5px;
+      display: none;
+      border: 1px solid var(--border);
+      background: #ffffff;
+      color: var(--accent);
+      padding: 0.6rem 0.9rem;
+      border-radius: 999px;
       cursor: pointer;
+      font-weight: 700;
     }
 
     nav {
-      display: none;
-      background-color: #1a1a1a;
-      flex-direction: column;
-      text-align: center;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.45rem;
     }
 
     nav a {
-      color: #ff6600;
-      padding: 1rem;
-      text-decoration: none;
-      border-top: 1px solid #333;
-      transition: background 0.3s ease;
+      color: var(--muted);
+      padding: 0.55rem 0.92rem;
+      border-radius: 999px;
+      transition: 0.2s ease;
+      font-weight: 500;
+    }
+
+    nav a.active {
+      color: var(--accent);
+      background: var(--accent-soft);
     }
 
     nav a:hover {
-      background-color: #333;
+      color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .hero {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      padding: 2.2rem;
+      margin-bottom: 1.3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      background: var(--accent-soft);
+      top: -120px;
+      right: -90px;
+    }
+
+    .hero-inner {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.8fr);
+      gap: 2rem;
+      align-items: center;
+      animation: heroReveal 1s ease-out both;
+    }
+
+    .hero-copy {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      width: fit-content;
+      padding: 0.45rem 0.85rem;
+      background: var(--accent-soft);
+      color: var(--accent);
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .hero-copy h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      line-height: 1.02;
+      letter-spacing: -0.04em;
+      max-width: 9ch;
+    }
+
+    .hero-copy p {
+      max-width: 58ch;
+      color: var(--muted);
+      font-size: 1.04rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      margin-top: 0.25rem;
+    }
+
+    .hero-photo-panel {
+      display: flex;
+      justify-content: center;
+    }
+
+    .hero-photo-wrap {
+      width: min(100%, 320px);
+      aspect-ratio: 1 / 1.08;
+      border-radius: 34px;
+      padding: 12px;
+      background: linear-gradient(180deg, #ffffff, #fff3e6);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      animation: floatImage 4.8s ease-in-out infinite;
+    }
+
+    .hero-photo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 26px;
+      display: block;
+    }
+
+    .button,
+    .github-btn,
+    .submit-btn,
+    .resume-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.85rem 1.28rem;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .button.primary,
+    .github-btn,
+    .submit-btn,
+    .resume-button {
+      background: var(--accent);
+      color: #ffffff;
+      box-shadow: 0 14px 28px rgba(255, 122, 26, 0.22);
+    }
+
+    .button.secondary {
+      background: #ffffff;
+      color: var(--accent);
+      border-color: var(--border);
+    }
+
+    .button:hover,
+    .github-btn:hover,
+    .submit-btn:hover,
+    .resume-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 30px rgba(255, 122, 26, 0.28);
+    }
+
+    .sections {
+      display: grid;
+      gap: 1rem;
     }
 
     section {
-      padding: 2rem 1rem;
-      max-width: 800px;
-      margin: auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      padding: 1.5rem;
       opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.6s ease;
+      transform: translateY(22px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
     }
 
     section.visible {
-      animation: slideIn 0.8s ease-out forwards;
+      opacity: 1;
+      transform: translateY(0);
     }
 
-    @keyframes slideIn {
-      from {
-        transform: translateY(40px);
-        opacity: 0;
-      }
-
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
+    section.in-view {
+      border-color: rgba(255, 122, 26, 0.3);
+      box-shadow: 0 18px 44px rgba(255, 122, 26, 0.12);
     }
 
     section h2 {
-      font-size: 1.5rem;
+      font-size: 1.08rem;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--accent);
       margin-bottom: 1rem;
-      color: #ff6600;
-      border-bottom: 2px solid #ff6600;
-      padding-bottom: 0.5rem;
       position: relative;
-      overflow: hidden;
+      width: fit-content;
+      padding-bottom: 0.45rem;
     }
 
     section h2::after {
       content: "";
       position: absolute;
-      width: 100%;
-      height: 2px;
+      left: 0;
       bottom: 0;
-      left: -100%;
-      background-color: #ff6600;
-      animation: underlineSlide 1s ease forwards;
+      width: 100%;
+      height: 3px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.5s ease;
     }
 
-    @keyframes underlineSlide {
-      to {
-        left: 0;
-      }
+    section.visible h2::after {
+      transform: scaleX(1);
+    }
+
+    section > p,
+    .card p,
+    .contact-links p {
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .cards,
+    .projects-list,
+    .contact-links {
+      display: grid;
+      gap: 0.95rem;
     }
 
     .card {
-      background-color: #1a1a1a;
-      padding: 1rem;
-      margin-bottom: 1rem;
-      border-left: 5px solid #ff6600;
-      border-radius: 8px;
-      transition: transform 0.3s ease;
+      background: var(--surface-soft);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.05rem 1.1rem;
+      transition: transform 0.2s ease, border-color 0.2s ease;
     }
 
     .card:hover {
-      transform: scale(1.03);
-      box-shadow: 0 0 15px rgba(255, 102, 0, 0.4);
+      transform: translateY(-6px);
+      border-color: rgba(255, 122, 26, 0.35);
+      box-shadow: 0 18px 30px rgba(255, 122, 26, 0.12);
     }
 
-    .resume-button {
-      display: inline-block;
+    .card h3 {
+      font-size: 1.03rem;
+      margin-bottom: 0.4rem;
+      color: var(--text);
+    }
+
+    .project-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .contact-links a {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .contact-form {
+      display: grid;
+      gap: 0.85rem;
       margin-top: 1rem;
-      padding: 0.75rem 1.5rem;
-      background-color: #ff6600;
-      color: #0d0d0d;
-      border: none;
-      border-radius: 5px;
-      font-weight: bold;
-      text-decoration: none;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .resume-button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 10px rgba(255, 102, 0, 0.5);
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 0.95rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: #ffffff;
+      color: var(--text);
+      font-size: 0.98rem;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      outline: none;
+      border-color: rgba(255, 122, 26, 0.7);
+      box-shadow: 0 0 0 4px rgba(255, 122, 26, 0.12);
+    }
+
+    .contact-form textarea {
+      resize: vertical;
+      min-height: 130px;
+    }
+
+    .form-status {
+      min-height: 1.4rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    .form-status.sending {
+      color: var(--accent);
+    }
+
+    .form-status.success {
+      color: #1f9d55;
+    }
+
+    .form-status.error {
+      color: #d64545;
     }
 
     footer {
       text-align: center;
-      padding: 2rem 1rem;
-      font-size: 0.9rem;
-      background-color: #1a1a1a;
-      color: #999;
+      color: var(--muted);
+      padding: 1.2rem 0 0.25rem;
+      font-size: 0.92rem;
     }
 
-    a {
-      color: #ff6600;
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    @media (max-width: 600px) {
-      header h1 {
-        font-size: 1.5rem;
+    @keyframes heroReveal {
+      from {
+        opacity: 0;
+        transform: translateY(22px);
       }
 
-      section h2 {
-        font-size: 1.2rem;
+      to {
+        opacity: 1;
+        transform: translateY(0);
       }
     }
 
-    .github-btn {
-      display: inline-block;
-      margin-top: 1rem;
-      padding: 0.75rem 1.5rem;
-      background-color: #ff6600;
-      color: #0d0d0d;
-      border: none;
-      border-radius: 5px;
-      font-weight: bold;
-      text-decoration: none;
-    }
-
-    .github-btn:hover {
-      background-color: #e65c00;
-    }
-
-    @media (max-width: 600px) {
-      header h1 {
-        font-size: 1.5rem;
+    @keyframes floatImage {
+      0%,
+      100% {
+        transform: translateY(0);
       }
 
-      section h2 {
-        font-size: 1.2rem;
+      50% {
+        transform: translateY(-10px);
       }
     }
 
-    @media (min-width: 768px) {
-      section {
-        padding: 2rem 2rem;
-        max-width: 80%;
+    @media (max-width: 840px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .hero-copy {
+        justify-items: center;
+      }
+
+      .hero-copy h1,
+      .hero-copy p {
+        max-width: 100%;
+      }
+
+      .hero-actions {
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .page-shell {
+        width: min(100% - 1rem, 1080px);
+        padding-top: 0.75rem;
+      }
+
+      .topbar {
+        border-radius: 28px;
+      }
+
+      .topbar-inner {
+        flex-wrap: wrap;
+      }
+
+      .menu-toggle {
+        display: inline-flex;
+      }
+
+      nav {
+        display: none;
+        width: 100%;
+        padding-top: 0.7rem;
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      nav.show {
+        display: flex;
+      }
+
+      nav a {
+        text-align: center;
+        background: var(--surface-soft);
+      }
+
+      .hero {
+        padding: 1.5rem;
+      }
+
+      .project-head {
+        flex-direction: column;
+        align-items: flex-start;
       }
     }
   </style>
 </head>
 
 <body>
-  <header>
-    <div class="portfolio-title">My Portfolio</div>
-    <button class="menu-toggle" onclick="toggleMenu()">☰ Menu</button>
-    <img src="ajay.png" alt="Your Photo">
-    <h2>"Hello, I'm Ajay Bapu Dombale</h2>
-    <nav id="nav-menu">
-      <a href="#about">About</a>
-      <a href="#projects">Projects</a>
-      <a href="#education">Education</a>
-      <a href="#Experience">Experience</a>
-      <a href="#Academic and Extracurricular Achievements">Academic and Extracurricular Achievements</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
+  <div class="scroll-progress">
+    <div class="scroll-progress-bar" id="scroll-progress-bar"></div>
+  </div>
+  <div class="page-shell">
+    <div class="topbar">
+      <div class="topbar-inner">
+        <div class="portfolio-title">My Portfolio</div>
+        <button class="menu-toggle" onclick="toggleMenu()">Menu</button>
+        <nav id="nav-menu">
+          <a href="#about">About</a>
+          <a href="#skills">Skills</a>
+          <a href="#projects">Projects</a>
+          <a href="#education">Education</a>
+          <a href="#experience">Experience</a>
+          <a href="#achievements">Achievements</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
+    </div>
 
-  <section id="about">
-    <h2>About Me</h2>
-    <p>I’m a final-year B.Tech Computer Science student with a strong passion for full-stack web development and cloud computing. I enjoy building clean, responsive, and interactive web applications using technologies like React, Node.js, and MongoDB. <br>I'm also gaining hands-on experience with AWS services such as EC2, S3, Lambda, and CloudWatch to design secure and scalable cloud-native solutions. I’m driven by a curiosity to solve real-world problems through code and love experimenting with new technologies to sharpen my skills and deliver better user experiences.</p>
-  </section>
+    <header class="hero">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <span class="hero-tag">Portfolio</span>
+          <h1>Hello, I'm Ajay Bapu Dombale</h1>
+          <p>I’m a final-year B.Tech Computer Science student with a strong passion for full-stack web development and cloud computing.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="#projects">View Projects</a>
+            <a class="button secondary" href="#contact">Contact Me</a>
+          </div>
+        </div>
+        <div class="hero-photo-panel">
+          <div class="hero-photo-wrap">
+            <img src="ajay.png" alt="Your Photo">
+          </div>
+        </div>
+      </div>
+    </header>
 
-  <section id="projects">
-    <h2>Skills</h2>
-    <div class="card">
-      
-      <p> Frontend : HTML , CSS , JavaScript , React.js
-          <br>
-          Backend : Next.js, Express.js
-          <br>
-          Database : MongoDB
-          <br>
-          Cloud    : AWS (EC2 , S3 , IAM..) ,  Linux , Git (Version Controlled) , GitHub
-          <br>
-          UI/UX : Figma
-          <br>
-          Soft Skills : Team Collaboration, Leadership, Communication, Problem-Solving
-      </p>
-      
-    </div>
-  </section>
+    <main class="sections">
+      <section id="about">
+        <h2>About Me</h2>
+        <p>I’m a final-year B.Tech Computer Science student with a strong passion for full-stack web development and cloud computing. I enjoy building clean, responsive, and interactive web applications using technologies like React, Node.js, and MongoDB. <br>I'm also gaining hands-on experience with AWS services such as EC2, S3, Lambda, and CloudWatch to design secure and scalable cloud-native solutions. I’m driven by a curiosity to solve real-world problems through code and love experimenting with new technologies to sharpen my skills and deliver better user experiences.</p>
+      </section>
 
-  <section id="projects">
-    <h2>Projects</h2>
-    <div class="card">
-      <h3>ShopFusion ( 3D E-Commerce Website ) </h3>
-      <p>  • Integrated 3D product visualizations using Three.js to enhance user experience
-                         by allowing interactive rotation and zoom of each product model.</p>
-      <a href="https://github.com/AJAY-DOMBALE-04/ShopFusion"class="github-btn" target="_blank">View Project</a>
-    </div>
-   
-    <div class="card">
-      <h3>Movie Review API </h3>
-      <p> • Movie Review API built using Django Ninja for the backend and a React frontend It allows users to view and review movies with details like director and rating.</p> 
-      <a href="https://github.com/AJAY-DOMBALE-04/Movie-Review-API" class="github-btn" target="_blank">View Project</a>
-    </div>
-    <div class="card">
-        <h3>MindSpark (quiz application)</h3>
-        <p>• An interactive and feature-rich quiz application built using the MERN stack</p>
-        <a href="	https://github.com/AJAY-DOMBALE-04/quizapp" class="github-btn" target="_blank">View Project </a>
-    </div>
-    <div class="card">
-      <h3>Taskify ( Todo Web app )</h3>
-      <p>• The Taskify  is a simple yet effective task management tool that allows users to create, manage, and track their daily tasks..</p>
-      <a href="	https://github.com/AJAY-DOMBALE-04/Taskify"class="github-btn" target="_blank">View Project </a>
-    </div>
-    <div class="card">
-        <h3>SkyCast (Weather application) </h3>
-        <p>• Weather Application is a React-based application that fetches and displays real-time weather data for a given location                                                                                                    using the Open weather map  API..</p>
-        <a href="https://github.com/AJAY-DOMBALE-04/SkyCast"class="github-btn" target="_blank">View Project </a>
-    </div>
-    <div class="card">
-      <h3>Living UI/UX Design</h3>
-      <p>• The design showcases a travel-based application that offers an intuitive and engaging interface for users to explore, book trips, and manage their travel preferences..</p> 
-      <a href="https://github.com/AJAY-DOMBALE-04/LIVING--UI-UX-"class="github-btn" target="_blank">View Project</a>
-    </div>
-  </section>
+      <section id="skills">
+        <h2>Skills</h2>
+        <div class="cards">
+          <div class="card">
+            <p>Frontend : HTML, CSS, JavaScript, React.js
+              <br> Backend : Express.js
+              <br> Cloud : AWS (EC2, S3, IAM..), Linux, Git (Version Control), GitHub
+              <br> UI/UX Design : Figma
+              <br> Soft Skills : Team Collaboration, Leadership, Communication, Problem-Solving
+            </p>
+          </div>
+        </div>
+      </section>
 
-  <section id="education">
-    <h2>Education</h2>
-    <div class="card">
-      <h3>Maharashtra Institute of Technology (An Autonomous Institute) Chh.Sambhaji Nagar (2022-2026)</h3>
-      <p>Bachelor of Technology in Computer Science	and engineering (B.Tech CSE) <br>Current in 3rd year __(6th Semester)<br>Grade - Current CGPA: 9.55</p>
-    </div>
-    <div class="card">
-      <h3>S.B.E.S. College of Science, Chh.Sambhaji Nagar.	</h3>
-      <p>(Class XII) Science : 70%  (PCM)</p>
-    </div>
-    <div class="card">
-      <h3>New English High School, Chh.Sambhaji Nagar.</h3>
-      <p>(Class X) : 85.80%	</p>
-    </div>
-  </section>
+      <section id="projects">
+        <h2>Projects</h2>
+        <div class="projects-list">
+          <div class="card">
+            <div class="project-head">
+              <h3>ShopFusion ( 3D E-Commerce Website )</h3>
+              <a href="https://github.com/AJAY-DOMBALE-04/ShopFusion" class="github-btn" target="_blank">View Project</a>
+            </div>
+            <p>• Integrated 3D product visualizations using Three.js to enhance user experience by allowing interactive rotation and zoom of each product model.</p>
+          </div>
+          <div class="card">
+            <div class="project-head">
+              <h3>Movie Review API</h3>
+              <a href="https://github.com/AJAY-DOMBALE-04/Movie-Review-API" class="github-btn" target="_blank">View Project</a>
+            </div>
+            <p>• Movie Review API built using Django Ninja for the backend and a React frontend It allows users to view and review movies with details like director and rating.</p>
+          </div>
+          <div class="card">
+            <div class="project-head">
+              <h3>MindSpark (quiz application)</h3>
+              <a href="https://github.com/AJAY-DOMBALE-04/quizapp" class="github-btn" target="_blank">View Project</a>
+            </div>
+            <p>• An interactive and feature-rich quiz application built using the MERN stack</p>
+          </div>
+          <div class="card">
+            <div class="project-head">
+              <h3>Taskify ( Todo Web app )</h3>
+              <a href="https://github.com/AJAY-DOMBALE-04/Taskify" class="github-btn" target="_blank">View Project</a>
+            </div>
+            <p>• The Taskify is a simple yet effective task management tool that allows users to create, manage, and track their daily tasks..</p>
+          </div>
+          <div class="card">
+            <div class="project-head">
+              <h3>SkyCast (Weather application)</h3>
+              <a href="https://github.com/AJAY-DOMBALE-04/SkyCast" class="github-btn" target="_blank">View Project</a>
+            </div>
+            <p>• Weather Application is a React-based application that fetches and displays real-time weather data for a given location using the Open weather map API..</p>
+          </div>
+          <div class="card">
+            <div class="project-head">
+              <h3>Living UI/UX Design</h3>
+              <a href="https://github.com/AJAY-DOMBALE-04/LIVING--UI-UX-" class="github-btn" target="_blank">View Project</a>
+            </div>
+            <p>• The design showcases a travel-based application that offers an intuitive and engaging interface for users to explore, book trips, and manage their travel preferences..</p>
+          </div>
+        </div>
+      </section>
 
-  <section id="Experience">
-    <h2>Experience</h2>
-    <div class="card">
-      <p> Event Manager | ACTs (Association of Computer Technology Students)
-      <br> Maharashtra Institute of Technology, Chhatrapati Sambhaj Nagar.</p> Jan 2025 - Present
-        <br> • Led the planning and successful execution of national-level technical events,
-including Technophilia and Shark Tank-style startup pitch competitions
-    </div>
-  
-  </section>
+      <section id="education">
+        <h2>Education</h2>
+        <div class="cards">
+          <div class="card">
+            <h3>Maharashtra Institute of Technology (MIT), Chhatrapati Sambhajinagar.</h3>
+            <p>BTech - Computer Science and Engineering (2022-2026) <br>CGPA: 9.63 / 10.0</p>
+          </div>
+          <div class="card">
+            <h3>S.B.E.S. College of Science, Chhatrapati Sambhajinagar.</h3>
+            <p>(Class XII) Science : 70% (PCM)</p>
+          </div>
+          <div class="card">
+            <h3>New English High School, Chhatrapati Sambhajinagar.</h3>
+            <p>(Class X) : 85.80%</p>
+          </div>
+        </div>
+      </section>
 
-  <section id="Academic and Extracurricular Achievements">
-    <h2>Academic and Extracurricular Achievements</h2>
-    <div class="card">
-      <p> AI prompt engineering and RAG for software engineers.<br><a href="https://www.linkedin.com/in/ajay-dombale-1662072bb/details/certifications/" class="github-btn" target="_blank">View</a></p>
-    </div>
-    <div class="card">
-      <p> Master Industry Grade Python Skills Understanding of Django, Python, and industry-level development practices.<br><a href="https://www.linkedin.com/posts/ajay-dombale-1662072bb_python-django-webdevelopment-activity-7295085920146395140-M2Sh?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEy9OB4BpR9n0O9prm9X2ekE8UriEl_WzxU"class="github-btn" target="_blank">View</a></p>
-    </div>
-    <div class="card">
-      <p>	Bootcamp on Robotics Process Automation by (NIELIT) – Certificate of Completion.<br><a href="https://www.linkedin.com/posts/ajay-dombale-1662072bb_roboticprocessautomation-rpa-automation-activity-7255896959415140352-0sUL?utm_source=share&utm_medium=member_desktop"class="github-btn" target="_blank">View</a></a></p>
-    </div>
-    <div class="card">
-      <p>Database Foundations Course by (Oracle Academy) – Course Completion Certificate.<br><a href="https://www.linkedin.com/posts/ajay-dombale-1662072bb_database-oracleacademy-learningjourney-activity-7255894604934225920-Z-b3?utm_source=share&utm_medium=member_desktop"class="github-btn" target="_blank">View</a></p>
-    </div>
-    <div class="card">
-      <p> Career Essentials in Generative AI learning path by Microsoft and LinkedIn..<br><a href="https://www.linkedin.com/posts/ajay-dombale-1662072bb_certificate-of-completion-activity-7256261980980740096-i8OR?utm_source=share&utm_medium=member_desktop"class="github-btn" target="_blank">View</a></p>
-    </div>
-  </section>
+      <section id="experience">
+        <h2>Experience</h2>
+        <div class="cards">
+          <div class="card">
+            <h3>Software Developer Intern | Indian Internet Solutions Pvt. Ltd.</h3>
+            <p>Jan 2026 - Present</p>
+            <p>• Project: Sanjay Technoplast Official Website</p>
+            <p>• Leading the end-to-end development of a professional corporate website for Sanjay Technoplast to enhance their digital presence.</p>
+            <p>• Live : <a href="https://sanjaytechnoplast.com" target="_blank">sanjaytechnoplast.com</a></p>
+          </div>
+          <div class="card">
+            <h3>Event Manager | ACTs (Association of Computer Technology Students)</h3>
+            <p>Jan 2025 - Dec 2025</p>
+            <p>• Led the planning and successful execution of national-level technical events, including Technophilia and Shark Tank-style startup pitch competitions.</p>
+          </div>
+        </div>
+      </section>
 
-  <section id="contact">
-    <h2>Contact Me</h2>
-    <p>Email : <a href="mailto:your.email@example.com">ajaydombale4@gmail.com</a></p>
-    <p>LinkedIn : <a href="https://www.linkedin.com/in/ajay-dombale-1662072bb/" target="_blank">AJAY DOMBALE</a></p>
-    <p>GitHub : <a href="https://github.com/AJAY-DOMBALE-04" target="_blank">AJAY-DOMBALE-04 </p>
-  </section>
+      <section id="achievements">
+        <h2>Academic and Extracurricular Achievements</h2>
+        <div class="cards">
+          <div class="card">
+            <p>AI prompt engineering and RAG for software engineers.</p>
+            <a href="https://www.linkedin.com/in/ajay-dombale-1662072bb/details/certifications/" class="github-btn" target="_blank">View</a>
+          </div>
+          <div class="card">
+            <p>Master Industry Grade Python Skills Understanding of Django, Python, and industry-level development practices.</p>
+            <a href="https://www.linkedin.com/posts/ajay-dombale-1662072bb_python-django-webdevelopment-activity-7295085920146395140-M2Sh?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEy9OB4BpR9n0O9prm9X2ekE8UriEl_WzxU" class="github-btn" target="_blank">View</a>
+          </div>
+          <div class="card">
+            <p>Bootcamp on Robotics Process Automation by (NIELIT) – Certificate of Completion.</p>
+            <a href="https://www.linkedin.com/posts/ajay-dombale-1662072bb_roboticprocessautomation-rpa-automation-activity-7255896959415140352-0sUL?utm_source=share&utm_medium=member_desktop" class="github-btn" target="_blank">View</a>
+          </div>
+          <div class="card">
+            <p>Database Foundations Course by (Oracle Academy) – Course Completion Certificate.</p>
+            <a href="https://www.linkedin.com/posts/ajay-dombale-1662072bb_database-oracleacademy-learningjourney-activity-7255894604934225920-Z-b3?utm_source=share&utm_medium=member_desktop" class="github-btn" target="_blank">View</a>
+          </div>
+          <div class="card">
+            <p>Career Essentials in Generative AI learning path by Microsoft and LinkedIn..</p>
+            <a href="https://www.linkedin.com/posts/ajay-dombale-1662072bb_certificate-of-completion-activity-7256261980980740096-i8OR?utm_source=share&utm_medium=member_desktop" class="github-btn" target="_blank">View</a>
+          </div>
+        </div>
+      </section>
 
-  <footer>
-    &copy; 2025 Ajay Bapu Dombale. All rights reserved.
-  </footer>
+      <section id="contact">
+        <h2>Contact Me</h2>
+        <div class="contact-links">
+          <p>Email : <a href="mailto:ajaydombale4@gmail.com">ajaydombale4@gmail.com</a></p>
+          <p>LinkedIn : <a href="https://www.linkedin.com/in/ajay-dombale-1662072bb/" target="_blank">AJAY DOMBALE</a></p>
+          <p>GitHub : <a href="https://github.com/AJAY-DOMBALE-04" target="_blank">AJAY-DOMBALE-04</a></p>
+        </div>
 
+        <form class="contact-form" onsubmit="submitForm(event)">
+          <input type="text" id="name" name="name" placeholder="Your Name" required>
+          <input type="email" id="email" name="email" placeholder="Your Email" required>
+          <input type="tel" id="phone" name="phone" placeholder="Your Phone">
+          <input type="text" id="subject" name="subject" placeholder="Subject" required>
+          <textarea id="message" name="message" placeholder="Your Message" required></textarea>
+          <button type="submit" class="submit-btn">Send Message</button>
+          <p id="form-status" class="form-status"></p>
+        </form>
+      </section>
+    </main>
+
+    <footer>
+      &copy; 2026 Ajay Bapu Dombale. All rights reserved.
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script>
+    emailjs.init("xNFPjxxle5HVunnYn");
+
     function toggleMenu() {
       const nav = document.getElementById('nav-menu');
-      nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+      nav.classList.toggle('show');
     }
 
     const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('#nav-menu a');
+    const progressBar = document.getElementById('scroll-progress-bar');
 
     function checkVisibility() {
-      const triggerBottom = window.innerHeight * 0.85;
-      sections.forEach(sec => {
+      const triggerBottom = window.innerHeight * 0.88;
+      sections.forEach((sec, index) => {
         const boxTop = sec.getBoundingClientRect().top;
         if (boxTop < triggerBottom) {
+          sec.style.transitionDelay = `${index * 0.08}s`;
           sec.classList.add('visible');
         }
       });
     }
 
+    function updateScrollEffects() {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      progressBar.style.width = `${progress}%`;
+
+      let currentSectionId = '';
+
+      sections.forEach((sec) => {
+        const rect = sec.getBoundingClientRect();
+        const inView = rect.top < window.innerHeight * 0.45 && rect.bottom > window.innerHeight * 0.35;
+        sec.classList.toggle('in-view', inView);
+
+        if (scrollTop >= sec.offsetTop - 140) {
+          currentSectionId = sec.id;
+        }
+      });
+
+      navLinks.forEach((link) => {
+        const isActive = link.getAttribute('href') === `#${currentSectionId}`;
+        link.classList.toggle('active', isActive);
+      });
+    }
+
     window.addEventListener('scroll', checkVisibility);
+    window.addEventListener('scroll', updateScrollEffects);
     window.addEventListener('load', checkVisibility);
+    window.addEventListener('load', updateScrollEffects);
+
+    async function submitForm(e) {
+      e.preventDefault();
+      const form = e.target;
+      const submitButton = form.querySelector('.submit-btn');
+      const status = document.getElementById('form-status');
+
+      const data = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        phone: document.getElementById("phone").value,
+        subject: document.getElementById("subject").value,
+        message: document.getElementById("message").value,
+      };
+
+      try {
+        submitButton.disabled = true;
+        submitButton.textContent = "Sending...";
+        status.textContent = "Sending your message...";
+        status.className = "form-status sending";
+
+        await emailjs.send("service_sejokwv", "template_gp12c7v", data);
+        status.textContent = "Message sent successfully!";
+        status.className = "form-status success";
+        form.reset();
+      } catch (error) {
+        console.error("Error:", error);
+        status.textContent = "Failed to send message. Please try again.";
+        status.className = "form-status error";
+      } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = "Send Message";
+      }
+    }
   </script>
 </body>
 
