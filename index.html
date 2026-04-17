@@ -251,6 +251,17 @@
       box-shadow: 0 14px 28px rgba(216, 88, 0, 0.22);
     }
 
+    .github-btn {
+      padding: 0.45rem 0.78rem;
+      font-size: 0.78rem;
+      line-height: 1.1;
+      align-self: flex-start;
+      background: var(--accent-soft);
+      color: var(--accent);
+      border-color: var(--border);
+      box-shadow: none;
+    }
+
     .button.secondary {
       background: #ffffff;
       color: var(--accent);
@@ -276,6 +287,7 @@
       border-radius: var(--radius-lg);
       box-shadow: var(--shadow);
       padding: 1.5rem;
+      scroll-margin-top: 6.5rem;
       opacity: 0;
       transform: translateY(22px);
       transition: opacity 0.55s ease, transform 0.55s ease;
@@ -354,12 +366,37 @@
       color: var(--text);
     }
 
+    .experience-project {
+      margin-top: 0.9rem;
+      padding: 0.9rem 1rem;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+    }
+
+    .experience-project strong {
+      color: var(--accent);
+    }
+
     .project-head {
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      margin-bottom: 0.8rem;
+      justify-content: flex-start;
+      gap: 0.7rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .achievement-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 0.7rem;
+    }
+
+    .achievement-head p {
+      margin: 0;
     }
 
     .contact-links a {
@@ -523,10 +560,10 @@
         <button class="menu-toggle" onclick="toggleMenu()">Menu</button>
         <nav id="nav-menu">
           <a href="#about">About</a>
-          <a href="#skills">Skills</a>
-          <a href="#projects">Projects</a>
           <a href="#education">Education</a>
+          <a href="#skills">Skills</a>
           <a href="#experience">Experience</a>
+          <a href="#projects">Projects</a>
           <a href="#achievements">Achievements</a>
           <a href="#contact">Contact</a>
         </nav>
@@ -558,104 +595,6 @@
         <p>I’m a final-year B.Tech Computer Science student with a strong passion for full-stack web development and cloud computing. I enjoy building clean, responsive, and interactive web applications using technologies like React, Node.js, and MongoDB. <br>I'm also gaining hands-on experience with AWS services such as EC2, S3, Lambda, and CloudWatch to design secure and scalable cloud-native solutions. I’m driven by a curiosity to solve real-world problems through code and love experimenting with new technologies to sharpen my skills and deliver better user experiences.</p>
       </section>
 
-      <section id="skills">
-        <h2>Skills</h2>
-        <div class="cards">
-          <div class="card">
-            <p>Frontend : HTML, CSS, JavaScript, React.js
-              <br> Backend : Express.js
-              <br> Cloud : AWS (EC2, S3, IAM..), Linux, Git (Version Control), GitHub
-              <br> UI/UX Design : Figma
-              <br> Soft Skills : Team Collaboration, Leadership, Communication, Problem-Solving
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section id="projects">
-        <h2>Projects</h2>
-        <div class="projects-list">
-          <div class="card">
-            <div class="project-head">
-              <h3>Sanjay Technoplast Official Website</h3>
-              <a href="https://sanjaytechnoplast.com" class="github-btn" target="_blank">View Project</a>
-            </div>
-            <p>• Leading the end-to-end development of a professional corporate website for Sanjay Technoplast to enhance their digital presence.</p>
-            <p>• <strong>Tech Stack:</strong><br>
-              &nbsp; <strong>Frontend Core:</strong> HTML5, CSS3, JavaScript (ES6/Vanilla), Bootstrap (v3)<br>
-              &nbsp; <strong>Backend & Email:</strong> PHP, PHPMailer (with SMTP)<br>
-              &nbsp; <strong>SEO & Optimization:</strong> JSON-LD Schema.org, Open Graph (OG) Meta Tags
-            </p>
-            <p>• Live Links: <a href="https://sanjaytechnoplast.com" target="_blank" style="color: var(--accent); font-weight: 600;">sanjaytechnoplast.com</a> | <a href="https://sanjaygroup.in" target="_blank" style="color: var(--accent); font-weight: 600;">sanjaygroup.in</a></p>
-          </div>
-          <div class="card">
-            <div class="project-head">
-              <h3>AWS Hands-on Practice</h3>
-              <a href="https://www.linkedin.com/posts/ajay-dombale-1662072bb_aws-ec2-nginx-activity-7363204284747833344-MxJ8?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEy9OB4BpR9n0O9prm9X2ekE8UriEl_WzxU" class="github-btn" target="_blank">View Post</a>
-            </div>
-            <p>• Hosted portfolio website using AWS S3 (Serverless static hosting).<br>
-              • Configured IAM policies, bucket policies, and static website hosting endpoints.<br>
-              • Deployed applications on EC2 with Apache/Nginx for full-stack hosting.<br>
-              • Basic experience with RDS setup, security groups, and monitoring.</p>
-          </div>
-          <div class="card">
-            <div class="project-head">
-              <h3>FutureTrack</h3>
-              <a href="https://future-track-five.vercel.app/" class="github-btn" target="_blank">View Project</a>
-            </div>
-            <p>• An AI-powered recruiting and placement platform that  provide students with automated resume analysis, smart job opportunity matching, and personalized learning-path recommendations.</p>
-            <p>• <strong>Tech Stack:</strong><br>
-              &nbsp; <strong>Frontend:</strong> React.js, Bootstrap, Framer Motion<br>
-              &nbsp; <strong>Backend:</strong> Python (Flask), Firebase<br>
-              &nbsp; <strong>AI Engine:</strong> Google Gemini API, Scikit-Learn (joblib), PyPDF2
-            </p>
-            <p>• Live Link: <a href="https://future-track-five.vercel.app/" target="_blank" style="color: var(--accent); font-weight: 600;">future-track-five.vercel.app</a></p>
-          </div>
-          <div class="card">
-            <div class="project-head">
-              <h3>ShopFusion ( 3D E-Commerce Website )</h3>
-              <a href="https://github.com/AJAY-DOMBALE-04/ShopFusion" class="github-btn" target="_blank">View Project</a>
-            </div>
-            <p>• Integrated 3D product visualizations using Three.js to enhance user experience by allowing interactive rotation and zoom of each product model.</p>
-          </div>
-          <div class="card">
-            <div class="project-head">
-              <h3>Movie Review API</h3>
-              <a href="https://github.com/AJAY-DOMBALE-04/Movie-Review-API" class="github-btn" target="_blank">View Project</a>
-            </div>
-            <p>• Movie Review API built using Django Ninja for the backend and a React frontend It allows users to view and review movies with details like director and rating.</p>
-          </div>
-          <div class="card">
-            <div class="project-head">
-              <h3>MindSpark (quiz application)</h3>
-              <a href="https://github.com/AJAY-DOMBALE-04/quizapp" class="github-btn" target="_blank">View Project</a>
-            </div>
-            <p>• An interactive and feature-rich quiz application built using the MERN stack</p>
-          </div>
-          <div class="card">
-            <div class="project-head">
-              <h3>Taskify ( Todo Web app )</h3>
-              <a href="https://github.com/AJAY-DOMBALE-04/Taskify" class="github-btn" target="_blank">View Project</a>
-            </div>
-            <p>• The Taskify is a simple yet effective task management tool that allows users to create, manage, and track their daily tasks..</p>
-          </div>
-          <div class="card">
-            <div class="project-head">
-              <h3>SkyCast (Weather application)</h3>
-              <a href="https://github.com/AJAY-DOMBALE-04/SkyCast" class="github-btn" target="_blank">View Project</a>
-            </div>
-            <p>• Weather Application is a React-based application that fetches and displays real-time weather data for a given location using the Open weather map API..</p>
-          </div>
-          <div class="card">
-            <div class="project-head">
-              <h3>Living UI/UX Design</h3>
-              <a href="https://github.com/AJAY-DOMBALE-04/LIVING--UI-UX-" class="github-btn" target="_blank">View Project</a>
-            </div>
-            <p>• The design showcases a travel-based application that offers an intuitive and engaging interface for users to explore, book trips, and manage their travel preferences..</p>
-          </div>
-        </div>
-      </section>
-
       <section id="education">
         <h2>Education</h2>
         <div class="cards">
@@ -674,20 +613,153 @@
         </div>
       </section>
 
+      <section id="skills">
+        <h2>Skills</h2>
+        <div class="cards">
+          <div class="card">
+            <p>Frontend : HTML, CSS, JavaScript, React.js
+              <br> Backend : Express.js
+              <br> Cloud : AWS (EC2, S3, IAM..), Linux, Git (Version Control), GitHub
+              <br> UI/UX Design : Figma
+              <br> Soft Skills : Team Collaboration, Leadership, Communication, Problem-Solving
+            </p>
+          </div>
+        </div>
+      </section>
+
       <section id="experience">
         <h2>Experience</h2>
         <div class="cards">
           <div class="card">
             <h3>Software Developer Intern | Indian Internet Solutions Pvt. Ltd.</h3>
             <p>Jan 2026 - Present</p>
-            <p>• Project: Sanjay Technoplast Official Website</p>
-            <p>• Leading the end-to-end development of a professional corporate website for Sanjay Technoplast to enhance their digital presence.</p>
-            <p>• Live : <a href="https://sanjaytechnoplast.com" target="_blank">sanjaytechnoplast.com</a></p>
+            <div class="experience-project">
+              <p><strong>Sanjay Technoplast Official Website</strong> | Jan 2026 - Feb 2026</p>
+              <p>&bull; Led the development of the Sanjay Technoplast corporate website to strengthen the company's digital presence.</p>
+              <p>&bull; Live: <a href="https://sanjaytechnoplast.com" target="_blank" style="color: var(--accent); font-weight: 600;">sanjaytechnoplast.com</a></p>
+            </div>
+            <div class="experience-project">
+              <p><strong>FGLabel</strong> | Mar 2026 - Apr 2026</p>
+              <p>&bull; Built a finished-goods traceability system with QR tracking, dashboards, dispatch workflow, and delivery note generation.</p>
+            </div>
           </div>
           <div class="card">
             <h3>Event Manager | ACTs (Association of Computer Technology Students)</h3>
             <p>Jan 2025 - Dec 2025</p>
-            <p>• Led the planning and successful execution of national-level technical events, including Technophilia and Shark Tank-style startup pitch competitions.</p>
+            <p>&bull; Led the planning and successful execution of national-level technical events, including Technophilia and Shark Tank-style startup pitch competitions.</p>
+          </div>
+        </div>
+      </section>
+      <section id="projects">
+        <h2>Projects</h2>
+        <div class="projects-list">
+          <div class="card">
+            <div class="project-head">
+              <h3>FGLabel</h3>
+            </div>
+            <p>&bull; Built a role-based FG Label Management System for finished-goods traceability.</p>
+            <p>&bull; Implemented QR tracking, dashboards, store receipt, dispatch flow, and delivery note generation.</p>
+            <p>&bull; A web-based FG Label Management System for finished-goods traceability with QR tracking, dashboards, and dispatch management.</p>
+            <p>&bull; <strong>Tech Stack:</strong> PHP, MySQL, JavaScript, HTML, CSS, PDO, Stored Procedures</p>
+          </div>
+          <div class="card">
+            <div class="project-head">
+              <h3>Sanjay Technoplast Official Website</h3>
+              <a href="https://sanjaytechnoplast.com" class="github-btn" target="_blank">View Project</a>
+            </div>
+            <p>&bull; Leading the end-to-end development of a professional corporate website for Sanjay Technoplast to enhance their digital presence.</p>
+            <p>&bull; <strong>Tech Stack:</strong><br>
+              &nbsp; <strong>Frontend Core:</strong> HTML5, CSS3, JavaScript (ES6/Vanilla), Bootstrap (v3)<br>
+              &nbsp; <strong>Backend &amp; Email:</strong> PHP, PHPMailer (with SMTP)<br>
+              &nbsp; <strong>SEO &amp; Optimization:</strong> JSON-LD Schema.org, Open Graph (OG) Meta Tags
+            </p>
+            <p>&bull; Live Links: <a href="https://sanjaytechnoplast.com" target="_blank" style="color: var(--accent); font-weight: 600;">sanjaytechnoplast.com</a> | <a href="https://sanjaygroup.in" target="_blank" style="color: var(--accent); font-weight: 600;">sanjaygroup.in</a></p>
+          </div>
+          <div class="card">
+            <div class="project-head">
+              <h3>AWS Hands-on Practice</h3>
+              <a href="https://www.linkedin.com/posts/ajay-dombale-1662072bb_aws-ec2-nginx-activity-7363204284747833344-MxJ8?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEy9OB4BpR9n0O9prm9X2ekE8UriEl_WzxU" class="github-btn" target="_blank">View Post</a>
+            </div>
+            <p>&bull; Hosted portfolio website using AWS S3 (Serverless static hosting).<br>
+              &bull; Configured IAM policies, bucket policies, and static website hosting endpoints.<br>
+              &bull; Deployed applications on EC2 with Apache/Nginx for full-stack hosting.<br>
+              &bull; Basic experience with RDS setup, security groups, and monitoring.</p>
+          </div>
+          <div class="card">
+            <div class="project-head">
+              <h3>FutureTrack</h3>
+              <a href="https://future-track-five.vercel.app/" class="github-btn" target="_blank">View Project</a>
+            </div>
+            <p>&bull; An AI-powered recruiting and placement platform that provides students with automated resume analysis, smart job opportunity matching, and personalized learning-path recommendations.</p>
+            <p>&bull; <strong>Tech Stack:</strong><br>
+              &nbsp; <strong>Frontend:</strong> React.js, Bootstrap, Framer Motion<br>
+              &nbsp; <strong>Backend:</strong> Python (Flask), Firebase<br>
+              &nbsp; <strong>AI Engine:</strong> Google Gemini API, Scikit-Learn (joblib), PyPDF2
+            </p>
+            <p>&bull; Live Link: <a href="https://future-track-five.vercel.app/" target="_blank" style="color: var(--accent); font-weight: 600;">future-track-five.vercel.app</a></p>
+          </div>
+          <div class="card">
+            <div class="project-head">
+              <h3>ETL Project</h3>
+              <a href="https://etl-pi.vercel.app/" class="github-btn" target="_blank">View Project</a>
+            </div>
+            <p>&bull; Built a full-stack ETL web app where users upload CSV or provide API data, and the app cleans records with trim, deduplication, and missing-ID handling before returning a downloadable cleaned CSV.</p>
+            <p>&bull; <strong>Tech Stack:</strong><br>
+              &nbsp; <strong>Frontend:</strong> HTML, TailwindCSS CDN, vanilla JavaScript<br>
+              &nbsp; <strong>Backend:</strong> Vercel Serverless Functions (/api/*)<br>
+              &nbsp; <strong>Data Processing:</strong> Custom CSV parser and transform logic in JavaScript<br>
+              &nbsp; <strong>Deployment:</strong> Vercel
+            </p>
+            <p>&bull; <strong>Key Features:</strong><br>
+              &nbsp; CSV upload ETL via <code>POST /api/clean-upload</code><br>
+              &nbsp; API-source ETL via <code>POST /api/clean-from-source</code><br>
+              &nbsp; In-browser CSV download after transform<br>
+              &nbsp; Health endpoint for deployment verification
+            </p>
+            <p>&bull; Live Link: <a href="https://etl-pi.vercel.app/" target="_blank" style="color: var(--accent); font-weight: 600;">etl-pi.vercel.app</a></p>
+            <p>&bull; <strong>Portfolio Code Mentions:</strong> Same-origin API routes in <code>index.html:66</code>, <code>index.html:126</code>, <code>index.html:153</code>; auto-download flow in <code>index.html:104</code>, <code>index.html:130</code>, <code>index.html:161</code>; file upload parsing in <code>clean-upload.js:13</code>; core cleaning in <code>_lib.js:23</code>; duplicate removal in <code>_lib.js:57</code>; API JSON to CSV transform in <code>clean-from-source.js:41</code>; health check in <code>health.js:13</code>.</p>
+          </div>
+          <div class="card">
+            <div class="project-head">
+              <h3>ShopFusion ( 3D E-Commerce Website )</h3>
+              <a href="https://github.com/AJAY-DOMBALE-04/ShopFusion" class="github-btn" target="_blank">View Project</a>
+            </div>
+            <p>&bull; Integrated 3D product visualizations using Three.js to enhance user experience by allowing interactive rotation and zoom of each product model.</p>
+          </div>
+          <div class="card">
+            <div class="project-head">
+              <h3>Movie Review API</h3>
+              <a href="https://github.com/AJAY-DOMBALE-04/Movie-Review-API" class="github-btn" target="_blank">View Project</a>
+            </div>
+            <p>&bull; Movie Review API built using Django Ninja for the backend and a React frontend. It allows users to view and review movies with details like director and rating.</p>
+          </div>
+          <div class="card">
+            <div class="project-head">
+              <h3>MindSpark (quiz application)</h3>
+              <a href="https://github.com/AJAY-DOMBALE-04/quizapp" class="github-btn" target="_blank">View Project</a>
+            </div>
+            <p>&bull; An interactive and feature-rich quiz application built using the MERN stack.</p>
+          </div>
+          <div class="card">
+            <div class="project-head">
+              <h3>Taskify ( Todo Web app )</h3>
+              <a href="https://github.com/AJAY-DOMBALE-04/Taskify" class="github-btn" target="_blank">View Project</a>
+            </div>
+            <p>&bull; Taskify is a simple yet effective task management tool that allows users to create, manage, and track their daily tasks.</p>
+          </div>
+          <div class="card">
+            <div class="project-head">
+              <h3>SkyCast (Weather application)</h3>
+              <a href="https://github.com/AJAY-DOMBALE-04/SkyCast" class="github-btn" target="_blank">View Project</a>
+            </div>
+            <p>&bull; A React-based weather application that fetches and displays real-time weather data for a given location using the OpenWeather API.</p>
+          </div>
+          <div class="card">
+            <div class="project-head">
+              <h3>Living UI/UX Design</h3>
+              <a href="https://github.com/AJAY-DOMBALE-04/LIVING--UI-UX-" class="github-btn" target="_blank">View Project</a>
+            </div>
+            <p>&bull; A travel-based UI/UX design that offers an intuitive and engaging interface for users to explore, book trips, and manage their travel preferences.</p>
           </div>
         </div>
       </section>
@@ -696,24 +768,34 @@
         <h2>Academic and Extracurricular Achievements</h2>
         <div class="cards">
           <div class="card">
-            <p>AI prompt engineering and RAG for software engineers.</p>
-            <a href="https://www.linkedin.com/in/ajay-dombale-1662072bb/details/certifications/" class="github-btn" target="_blank">View</a>
+            <div class="achievement-head">
+              <p>AI prompt engineering and RAG for software engineers.</p>
+              <a href="https://www.linkedin.com/in/ajay-dombale-1662072bb/details/certifications/" class="github-btn" target="_blank">View</a>
+            </div>
           </div>
           <div class="card">
-            <p>Master Industry Grade Python Skills Understanding of Django, Python, and industry-level development practices.</p>
-            <a href="https://www.linkedin.com/posts/ajay-dombale-1662072bb_python-django-webdevelopment-activity-7295085920146395140-M2Sh?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEy9OB4BpR9n0O9prm9X2ekE8UriEl_WzxU" class="github-btn" target="_blank">View</a>
+            <div class="achievement-head">
+              <p>Master Industry Grade Python Skills Understanding of Django, Python, and industry-level development practices.</p>
+              <a href="https://www.linkedin.com/posts/ajay-dombale-1662072bb_python-django-webdevelopment-activity-7295085920146395140-M2Sh?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEy9OB4BpR9n0O9prm9X2ekE8UriEl_WzxU" class="github-btn" target="_blank">View</a>
+            </div>
           </div>
           <div class="card">
-            <p>Bootcamp on Robotics Process Automation by (NIELIT) – Certificate of Completion.</p>
-            <a href="https://www.linkedin.com/posts/ajay-dombale-1662072bb_roboticprocessautomation-rpa-automation-activity-7255896959415140352-0sUL?utm_source=share&utm_medium=member_desktop" class="github-btn" target="_blank">View</a>
+            <div class="achievement-head">
+              <p>Bootcamp on Robotics Process Automation by (NIELIT) – Certificate of Completion.</p>
+              <a href="https://www.linkedin.com/posts/ajay-dombale-1662072bb_roboticprocessautomation-rpa-automation-activity-7255896959415140352-0sUL?utm_source=share&utm_medium=member_desktop" class="github-btn" target="_blank">View</a>
+            </div>
           </div>
           <div class="card">
-            <p>Database Foundations Course by (Oracle Academy) – Course Completion Certificate.</p>
-            <a href="https://www.linkedin.com/posts/ajay-dombale-1662072bb_database-oracleacademy-learningjourney-activity-7255894604934225920-Z-b3?utm_source=share&utm_medium=member_desktop" class="github-btn" target="_blank">View</a>
+            <div class="achievement-head">
+              <p>Database Foundations Course by (Oracle Academy) – Course Completion Certificate.</p>
+              <a href="https://www.linkedin.com/posts/ajay-dombale-1662072bb_database-oracleacademy-learningjourney-activity-7255894604934225920-Z-b3?utm_source=share&utm_medium=member_desktop" class="github-btn" target="_blank">View</a>
+            </div>
           </div>
           <div class="card">
-            <p>Career Essentials in Generative AI learning path by Microsoft and LinkedIn..</p>
-            <a href="https://www.linkedin.com/posts/ajay-dombale-1662072bb_certificate-of-completion-activity-7256261980980740096-i8OR?utm_source=share&utm_medium=member_desktop" class="github-btn" target="_blank">View</a>
+            <div class="achievement-head">
+              <p>Career Essentials in Generative AI learning path by Microsoft and LinkedIn..</p>
+              <a href="https://www.linkedin.com/posts/ajay-dombale-1662072bb_certificate-of-completion-activity-7256261980980740096-i8OR?utm_source=share&utm_medium=member_desktop" class="github-btn" target="_blank">View</a>
+            </div>
           </div>
         </div>
       </section>
@@ -833,3 +915,6 @@
 </body>
 
 </html>
+
+
+
