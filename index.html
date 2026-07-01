@@ -67,6 +67,8 @@
 
     html {
       scroll-behavior: smooth;
+      max-width: 100%;
+      overflow-x: hidden;
     }
 
     body {
@@ -75,6 +77,7 @@
       color: var(--text-primary);
       line-height: 1.7;
       transition: background 0.3s ease, color 0.3s ease;
+      max-width: 100%;
       overflow-x: hidden;
     }
 
@@ -545,10 +548,15 @@
 
     .about-facts-card li {
       display: flex;
-      align-items: center;
-      gap: 0.75rem;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 0.4rem 0.75rem;
       font-size: 0.95rem;
       color: var(--text-secondary);
+    }
+
+    .about-facts-card li a, .about-facts-card li span:last-child {
+      word-break: break-word;
     }
 
     .about-facts-card li i {
@@ -2132,6 +2140,12 @@
         progressBar.style.width = `${progress}%`;
       }
 
+      // Auto-close mobile menu on scroll
+      const navMenu = document.getElementById('nav-menu');
+      if (navMenu && navMenu.classList.contains('show')) {
+        navMenu.classList.remove('show');
+      }
+
       // Topbar shadow / glass scrolled background class
       if (topbar) {
         if (scrollTop > 20) {
@@ -2333,7 +2347,16 @@
 
       if (seeMoreBtn) {
         seeMoreBtn.onclick = () => {
-          youtubeVideosLimit = youtubeVideosList.length; // Show all
+          if (youtubeVideosLimit === 6) {
+            youtubeVideosLimit = youtubeVideosList.length; // Show all
+          } else {
+            youtubeVideosLimit = 6; // Collapse to 6
+            // Scroll YouTube section back into view
+            const ytSection = document.getElementById('youtube');
+            if (ytSection) {
+              ytSection.scrollIntoView({ behavior: 'smooth' });
+            }
+          }
           renderYouTubeVideos();
         };
       }
@@ -2368,8 +2391,13 @@
       });
 
       if (seeMoreBtn) {
-        if (youtubeVideosList.length > youtubeVideosLimit) {
+        if (youtubeVideosList.length > 6) {
           seeMoreBtn.style.display = 'block';
+          if (youtubeVideosLimit === 6) {
+            seeMoreBtn.innerHTML = '<i class="fa-solid fa-circle-chevron-down"></i> See More Videos';
+          } else {
+            seeMoreBtn.innerHTML = '<i class="fa-solid fa-circle-chevron-up"></i> Show Less Videos';
+          }
         } else {
           seeMoreBtn.style.display = 'none';
         }
